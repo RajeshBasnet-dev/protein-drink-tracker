@@ -89,7 +89,7 @@
   </div>
 
   <script>
-    // Get the current language from localStorage (same key as app.js)
+
     let currentLanguage = localStorage.getItem('proteinTrackerLang') || 'en';
 
     // Function to update translations
@@ -104,11 +104,14 @@
       document.getElementById('page-title').textContent = t.proteinFoodPageTitle;
       document.getElementById('back-btn').textContent = t.backToTracker;
 
-      // Update the title tag
+
       document.title = `${t.proteinSourcesTitle} - Protein Drink Tracker`;
 
-      // Update chart if it exists
-      if (window.proteinChart) {
+      // Update chart if it exists and is a Chart instance
+      if (
+        window.proteinChart &&
+        typeof window.proteinChart.destroy === 'function'
+      ) {
         window.proteinChart.destroy();
       }
       initChart();
@@ -122,13 +125,16 @@
       localStorage.setItem('proteinTheme', newTheme);
       this.textContent = newTheme === 'dark' ? '🌙' : '☀️';
       // Redraw chart with new colors
-      if (window.proteinChart) {
+      if (
+        window.proteinChart &&
+        typeof window.proteinChart.destroy === 'function'
+      ) {
         window.proteinChart.destroy();
       }
       initChart();
     });
 
-    // Language selector
+
     document.getElementById('lang-select').value = currentLanguage;
     document.getElementById('lang-select').addEventListener('change', function (e) {
       currentLanguage = e.target.value;
@@ -136,7 +142,6 @@
       updatePageTranslations();
     });
 
-    // Set theme toggle icon
     const current = document.documentElement.getAttribute('data-theme');
     document.getElementById('theme-toggle').textContent = current === 'dark' ? '🌙' : '☀️';
 
@@ -160,7 +165,7 @@
 
       const t = translations[currentLanguage];
 
-      // Get localized food names
+      
       const localizedData = proteinData.map(item => ({
         food: t.foods[item.food],
         amount: item.amount
@@ -246,7 +251,7 @@
       });
     }
 
-    // Initialize chart on page load
+
     updatePageTranslations();
   </script>
 </body>
