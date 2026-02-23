@@ -53,56 +53,84 @@
     </div>
   </header>
 
-  <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+<div class="main-content">
 
-  <div class="main-content">
+    <canvas id="confetti-canvas" aria-hidden="true"></canvas> 
+    
+  <div class="content-wrapper">
+      
+      <div class="tracker-core">
+        <div id="history-log" class="history-log" aria-label="7-day history log"></div>
 
-    <div class="hero-section">
-      <div class="progress-ring-wrapper">
-        <svg class="progress-ring" viewBox="0 0 120 120" aria-label="Weekly progress">
-          <circle class="progress-ring__bg" cx="60" cy="60" r="52" />
-          <circle class="progress-ring__fill" cx="60" cy="60" r="52" id="progress-ring-fill" />
-          <text x="60" y="54" class="progress-ring__count" id="progress-ring-count" text-anchor="middle" dominant-baseline="central">0</text>
-          <text x="60" y="72" class="progress-ring__label" id="progress-ring-label" text-anchor="middle" dominant-baseline="central">/7 days</text>
-        </svg>
+        <p id="motivational-quote" class="motivational-quote" aria-live="polite"></p>
+
+        <div class="graphic-container" aria-hidden="true">
+          <img id="arm-flexed" class="graphic-img hidden" src="images/drank.png" alt="Protein drank today" />
+          <img id="arm-weak" class="graphic-img" src="images/not-drank.png" alt="Protein not yet drank today" />
+        </div>
+
+        <button id="protein-food-list-btn" onclick="window.location.href='protein-food.html'" class="secondary-btn">
+          List of Protein Food (Natural)
+        </button>
+
+        <div class="status-area">
+          <p id="status-text" class="status"></p>
+          <p id="streak-text" class="streak-text" aria-live="polite"></p>
+        </div>
+
+        <button type="button" id="toggle-btn" class="toggle-btn" aria-pressed="false">
+          I drank my protein
+        </button>
+
+        <p id="last-time" class="last-time" style="font-size: 0.9rem; color: var(--text-muted); min-height: 1.2em;"></p>
       </div>
 
-      <div id="history-log" class="history-log" aria-label="7-day history log">
-        <!-- Populated by JS -->
+      <div class="dashboard-container">
+        
+        <div class="badges-section" aria-label="Achievements">
+          <h3 class="section-title" id="achievements-title">Achievements</h3>
+          <div id="badges-container" class="badges-container"></div>
+        </div>
+
+        <div class="hero-section">
+        <div class="progress-ring-wrapper">
+          <svg class="progress-ring" viewBox="0 0 120 120" aria-label="Weekly progress">
+            <circle class="progress-ring__bg" cx="60" cy="60" r="52" />
+            <circle class="progress-ring__fill" cx="60" cy="60" r="52" id="progress-ring-fill" />
+            <text x="60" y="54" class="progress-ring__count" id="progress-ring-count" text-anchor="middle" dominant-baseline="central">0</text>
+            <text x="60" y="72" class="progress-ring__label" id="progress-ring-label" text-anchor="middle" dominant-baseline="central">/7 days</text>
+          </svg>
+        </div>  
       </div>
-    </div>
 
     <div id="streak-badge" class="streak-badge hidden" aria-live="polite">
       <span class="streak-badge__icon" id="streak-badge-icon"></span>
       <span class="streak-badge__text" id="streak-badge-text"></span>
     </div>
 
-    <p id="motivational-quote" class="motivational-quote" aria-live="polite"></p>
+        <button id="toggle-stats-btn" class="secondary-btn" aria-expanded="false">
+          Show Monthly Stats 📊
+        </button>
+        
+        <div id="monthly-stats-section" class="collapsible-section hidden" aria-hidden="true">
+          <p id="monthly-stats-text" class="stats-text">Loading stats...</p>
+          <div class="progress-bar-container">
+            <div id="monthly-progress-fill" class="progress-fill"></div>
+          </div>
+        </div>
 
-    <div class="graphic-container" aria-hidden="true">
-      <img id="arm-flexed" class="graphic-img hidden" src="images/drank.png" alt="Protein drank today" />
-      <img id="arm-weak" class="graphic-img" src="images/not-drank.png" alt="Protein not yet drank today" />
-    </div>
+        <div class="heatmap-section">
+          <h3 class="section-title" id="heatmap-title">Yearly Consistency</h3>
+          <div class="heatmap-scroll-wrapper">
+            <div id="heatmap-grid" class="heatmap-grid"></div>
+          </div>
+        </div>
 
-    <div class="status-area">
-      <p id="status-text" class="status"></p>
-      <p id="streak-text" class="streak-text" aria-live="polite"></p>
-    </div>
-
-    <button type="button" id="toggle-btn" class="toggle-btn" aria-pressed="false">
-      I drank my protein
-    </button>
-
-    <p id="last-time" class="last-time" style="font-size: 0.9rem; color: var(--text-muted); min-height: 1.2em;"></p>
-
-    <button id="protein-food-list-btn" onclick="window.location.href='protein-food.html'" class="secondary-btn">
-      List of Protein Food (Natural)
-    </button>
-
-    <div id="world-clocks" class="world-clocks footer-clocks" aria-label="World Times">
-      <!-- Populated by JS -->
-    </div>
-  </div>
+      </div>
+  </div> 
+  <div id="world-clocks" class="world-clocks footer-clocks" aria-label="World Times"></div>
+</div>
+  
   <script src="app.js"></script>
 </body>
 
