@@ -813,7 +813,7 @@ body {
 .history-table-section {
   width: 100%;
   max-width: 620px;
-  margin-top: 0.5rem;
+  margin-top: 2rem;
   background: var(--glass-bg);
   border-radius: 16px;
   box-shadow: 0 4px 15px var(--shadow-color);
