@@ -702,6 +702,7 @@ body {
 
 .heatmap-grid::after {
   content: "";
+  display: block;
   width: 25px;
 }
 
