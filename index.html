@@ -54,12 +54,12 @@
     </div>
   </header>
 
-<div class="main-content">
+  <div class="main-content">
 
-    <canvas id="confetti-canvas" aria-hidden="true"></canvas> 
-    
-  <div class="content-wrapper">
-      
+    <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+
+    <div class="content-wrapper">
+
       <div class="tracker-core">
         <div id="history-log" class="history-log" aria-label="7-day history log"></div>
 
@@ -84,35 +84,109 @@
         </button>
 
         <p id="last-time" class="last-time" style="font-size: 0.9rem; color: var(--text-muted); min-height: 1.2em;"></p>
+
+        <!-- ── DAILY PROTEIN GOAL SECTION (new feature - Issue #13) ── -->
+        <div class="protein-goal-section" aria-label="Daily Protein Goal Tracker">
+          <div class="protein-goal-header">
+            <h3 class="protein-goal-title" id="protein-goal-title">🥩 Daily Protein Goal</h3>
+            <button
+              class="goal-edit-btn"
+              id="goal-edit-btn"
+              aria-label="Edit protein goal"
+              title="Edit goal">
+              ✏️
+            </button>
+          </div>
+
+          <!-- Goal Setup (shown when no goal is set or editing) -->
+          <div class="goal-setup" id="goal-setup" aria-hidden="false">
+            <div class="goal-input-row">
+              <input
+                type="number"
+                id="goal-input"
+                class="goal-input"
+                min="10"
+                max="500"
+                step="5"
+                placeholder="e.g. 150"
+                aria-label="Set daily protein goal in grams"
+              />
+              <span class="goal-unit">g</span>
+              <button class="goal-set-btn" id="goal-set-btn" aria-label="Save goal">Set Goal</button>
+            </div>
+            <p class="goal-hint">Enter your daily protein target in grams</p>
+          </div>
+
+          <!-- Progress Area (shown when goal is set) -->
+          <div class="goal-progress-area" id="goal-progress-area" aria-hidden="true">
+            <div class="goal-stats-row">
+              <span class="goal-current" id="goal-current" aria-live="polite">0g</span>
+              <span class="goal-divider">/</span>
+              <span class="goal-target" id="goal-target">0g</span>
+              <span class="goal-pct-badge" id="goal-pct-badge">0%</span>
+            </div>
+
+            <div class="goal-bar-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="goal-bar-track">
+              <div class="goal-bar-fill" id="goal-bar-fill"></div>
+              <div class="goal-bar-glow" id="goal-bar-glow"></div>
+            </div>
+
+            <div class="goal-log-row">
+              <!-- Quick-add preset buttons -->
+              <button class="quick-add-btn" data-amount="25" aria-label="Add 25g protein">+25g</button>
+              <button class="quick-add-btn" data-amount="30" aria-label="Add 30g protein">+30g</button>
+              <button class="quick-add-btn" data-amount="50" aria-label="Add 50g protein">+50g</button>
+              <!-- Custom amount -->
+              <div class="custom-add-wrap">
+                <input
+                  type="number"
+                  id="custom-add-input"
+                  class="custom-add-input"
+                  min="1"
+                  max="300"
+                  placeholder="g"
+                  aria-label="Custom amount in grams"
+                />
+                <button class="custom-add-btn" id="custom-add-btn" aria-label="Add custom amount">+Add</button>
+              </div>
+            </div>
+
+            <div class="goal-reached-msg hidden" id="goal-reached-msg" aria-live="polite">
+              🎉 Goal reached! Great job!
+            </div>
+          </div>
+        </div>
+        <!-- ── END DAILY PROTEIN GOAL SECTION ── -->
+
       </div>
 
       <div class="dashboard-container">
-        
+
         <div class="badges-section" aria-label="Achievements">
           <h3 class="section-title" id="achievements-title">Achievements</h3>
           <div id="badges-container" class="badges-container"></div>
         </div>
 
         <div class="hero-section">
-        <div class="progress-ring-wrapper">
-          <svg class="progress-ring" viewBox="0 0 120 120" aria-label="Weekly progress">
-            <circle class="progress-ring__bg" cx="60" cy="60" r="52" />
-            <circle class="progress-ring__fill" cx="60" cy="60" r="52" id="progress-ring-fill" />
-            <text x="60" y="54" class="progress-ring__count" id="progress-ring-count" text-anchor="middle" dominant-baseline="central">0</text>
-            <text x="60" y="72" class="progress-ring__label" id="progress-ring-label" text-anchor="middle" dominant-baseline="central">/7 days</text>
-          </svg>
-        </div>  
-      </div>
+          <div class="progress-ring-wrapper">
+            <svg class="progress-ring" viewBox="0 0 120 120" aria-label="Weekly progress">
+              <circle class="progress-ring__bg" cx="60" cy="60" r="52" />
+              <circle class="progress-ring__fill" cx="60" cy="60" r="52" id="progress-ring-fill" />
+              <text x="60" y="54" class="progress-ring__count" id="progress-ring-count" text-anchor="middle" dominant-baseline="central">0</text>
+              <text x="60" y="72" class="progress-ring__label" id="progress-ring-label" text-anchor="middle" dominant-baseline="central">/7 days</text>
+            </svg>
+          </div>
+        </div>
 
-    <div id="streak-badge" class="streak-badge hidden" aria-live="polite">
-      <span class="streak-badge__icon" id="streak-badge-icon"></span>
-      <span class="streak-badge__text" id="streak-badge-text"></span>
-    </div>
+        <div id="streak-badge" class="streak-badge hidden" aria-live="polite">
+          <span class="streak-badge__icon" id="streak-badge-icon"></span>
+          <span class="streak-badge__text" id="streak-badge-text"></span>
+        </div>
 
         <button id="toggle-stats-btn" class="secondary-btn" aria-expanded="false">
           Show Monthly Stats 📊
         </button>
-        
+
         <div id="monthly-stats-section" class="collapsible-section hidden" aria-hidden="true">
           <p id="monthly-stats-text" class="stats-text">Loading stats...</p>
           <div class="progress-bar-container">
@@ -128,39 +202,192 @@
         </div>
 
       </div>
-  </div> 
-  <div id="world-clocks" class="world-clocks footer-clocks" aria-label="World Times"></div>
+    </div>
 
-  <!-- ── HISTORY TABLE SECTION ── -->
-  <div class="history-table-section">
-    <div class="history-table-header">
-      <h2 class="history-table-title" id="full-history-title">📋 Full History</h2>
-      <div class="export-btns">
-        <button class="export-btn export-csv" id="export-csv-btn" title="Download CSV">⬇ CSV</button>
-        <button class="export-btn export-pdf" id="export-pdf-btn" title="Download PDF">⬇ PDF</button>
+    <div id="world-clocks" class="world-clocks footer-clocks" aria-label="World Times"></div>
+
+    <!-- ── HISTORY TABLE SECTION ── -->
+    <div class="history-table-section">
+      <div class="history-table-header">
+        <h2 class="history-table-title" id="full-history-title">📋 Full History</h2>
+        <div class="export-btns">
+          <button class="export-btn export-csv" id="export-csv-btn" title="Download CSV">⬇ CSV</button>
+          <button class="export-btn export-pdf" id="export-pdf-btn" title="Download PDF">⬇ PDF</button>
+        </div>
+      </div>
+      <div class="history-table-wrap">
+        <table class="history-table" id="history-table">
+          <thead>
+            <tr>
+              <th id="history-th-date">Date</th>
+              <th id="history-th-day">Day</th>
+              <th id="history-th-time">Time Logged</th>
+              <th id="history-th-status">Status</th>
+            </tr>
+          </thead>
+          <tbody id="history-table-body">
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+        <p class="history-table-empty" id="history-table-empty">No history yet. Start tracking your protein! 💪</p>
       </div>
     </div>
-    <div class="history-table-wrap">
-      <table class="history-table" id="history-table">
-        <thead>
-          <tr>
-            <th id="history-th-date">Date</th>
-            <th id="history-th-day">Day</th>
-            <th id="history-th-time">Time Logged</th>
-            <th id="history-th-status">Status</th>
-          </tr>
-        </thead>
-        <tbody id="history-table-body">
-          <!-- Populated by JS -->
-        </tbody>
-      </table>
-      <p class="history-table-empty" id="history-table-empty">No history yet. Start tracking your protein! 💪</p>
-    </div>
   </div>
-</div>
 
- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
- <script src="app.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="app.js"></script>
+
+  <!-- ── DAILY PROTEIN GOAL SCRIPT ── -->
+  <script>
+    (function () {
+      const GOAL_KEY = 'proteinDailyGoal';
+      const INTAKE_KEY = 'proteinDailyIntake';
+      const INTAKE_DATE_KEY = 'proteinIntakeDate';
+
+      const goalSetup = document.getElementById('goal-setup');
+      const goalProgressArea = document.getElementById('goal-progress-area');
+      const goalInput = document.getElementById('goal-input');
+      const goalSetBtn = document.getElementById('goal-set-btn');
+      const goalEditBtn = document.getElementById('goal-edit-btn');
+      const goalCurrent = document.getElementById('goal-current');
+      const goalTarget = document.getElementById('goal-target');
+      const goalPctBadge = document.getElementById('goal-pct-badge');
+      const goalBarFill = document.getElementById('goal-bar-fill');
+      const goalBarGlow = document.getElementById('goal-bar-glow');
+      const goalBarTrack = document.getElementById('goal-bar-track');
+      const goalReachedMsg = document.getElementById('goal-reached-msg');
+      const customAddInput = document.getElementById('custom-add-input');
+      const customAddBtn = document.getElementById('custom-add-btn');
+
+      function getTodayKey() {
+        return new Date().toISOString().slice(0, 10);
+      }
+
+      function getIntake() {
+        const savedDate = localStorage.getItem(INTAKE_DATE_KEY);
+        const today = getTodayKey();
+        if (savedDate !== today) {
+          // New day — reset intake
+          localStorage.setItem(INTAKE_DATE_KEY, today);
+          localStorage.setItem(INTAKE_KEY, '0');
+          return 0;
+        }
+        return parseInt(localStorage.getItem(INTAKE_KEY) || '0', 10);
+      }
+
+      function setIntake(val) {
+        localStorage.setItem(INTAKE_KEY, String(val));
+        localStorage.setItem(INTAKE_DATE_KEY, getTodayKey());
+      }
+
+      function getGoal() {
+        return parseInt(localStorage.getItem(GOAL_KEY) || '0', 10);
+      }
+
+      function updateUI() {
+        const goal = getGoal();
+        const intake = getIntake();
+
+        if (!goal) {
+          goalSetup.removeAttribute('aria-hidden');
+          goalProgressArea.setAttribute('aria-hidden', 'true');
+          goalProgressArea.style.display = 'none';
+          goalSetup.style.display = '';
+          goalEditBtn.style.display = 'none';
+          return;
+        }
+
+        goalSetup.setAttribute('aria-hidden', 'true');
+        goalSetup.style.display = 'none';
+        goalProgressArea.removeAttribute('aria-hidden');
+        goalProgressArea.style.display = '';
+        goalEditBtn.style.display = '';
+
+        const pct = Math.min(100, Math.round((intake / goal) * 100));
+        const reached = intake >= goal;
+
+        goalCurrent.textContent = intake + 'g';
+        goalTarget.textContent = goal + 'g';
+        goalPctBadge.textContent = pct + '%';
+
+        // Animate bar
+        goalBarFill.style.width = pct + '%';
+        goalBarGlow.style.width = pct + '%';
+        goalBarTrack.setAttribute('aria-valuenow', pct);
+
+        // Colour: green when reached, accent when not
+        if (reached) {
+          goalBarFill.classList.add('goal-complete');
+          goalPctBadge.classList.add('goal-pct-complete');
+          goalReachedMsg.classList.remove('hidden');
+        } else {
+          goalBarFill.classList.remove('goal-complete');
+          goalPctBadge.classList.remove('goal-pct-complete');
+          goalReachedMsg.classList.add('hidden');
+        }
+      }
+
+      function addIntake(amount) {
+        const val = Math.max(0, getIntake() + amount);
+        setIntake(val);
+        updateUI();
+      }
+
+      // Set / save goal
+      goalSetBtn.addEventListener('click', function () {
+        const val = parseInt(goalInput.value, 10);
+        if (!val || val < 10 || val > 500) {
+          goalInput.style.borderColor = 'var(--accent-color)';
+          goalInput.focus();
+          setTimeout(() => goalInput.style.borderColor = '', 1200);
+          return;
+        }
+        localStorage.setItem(GOAL_KEY, String(val));
+        goalInput.value = '';
+        updateUI();
+      });
+
+      goalInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') goalSetBtn.click();
+      });
+
+      // Edit (reset goal to show setup again)
+      goalEditBtn.addEventListener('click', function () {
+        goalSetup.style.display = '';
+        goalSetup.removeAttribute('aria-hidden');
+        goalProgressArea.style.display = 'none';
+        goalEditBtn.style.display = 'none';
+        goalInput.value = getGoal() || '';
+        goalInput.focus();
+      });
+
+      // Quick-add preset buttons
+      document.querySelectorAll('.quick-add-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          const amount = parseInt(btn.dataset.amount, 10);
+          addIntake(amount);
+          // Brief pop animation
+          btn.classList.add('quick-add-pop');
+          setTimeout(() => btn.classList.remove('quick-add-pop'), 300);
+        });
+      });
+
+      // Custom add
+      customAddBtn.addEventListener('click', function () {
+        const val = parseInt(customAddInput.value, 10);
+        if (!val || val < 1) return;
+        addIntake(val);
+        customAddInput.value = '';
+      });
+
+      customAddInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') customAddBtn.click();
+      });
+
+      // Init
+      updateUI();
+    })();
+  </script>
+
 </body>
-
 </html>
